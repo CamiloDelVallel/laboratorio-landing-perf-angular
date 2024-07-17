@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
-import * as moment from 'moment';
+//import * as moment from 'moment';
 
 interface Customer {
   title: string;
@@ -19,6 +19,8 @@ interface Customer {
 export class CustomersComponent {
   faAngleLeft = faAngleLeft;
   faAngleRight = faAngleRight;
+  givenDate: Date = new Date(); // Inicializa con la fecha de hoy
+  daysBetween: number = 0;
 
   config: SwiperOptions = {
     slidesPerView: 1,
@@ -47,7 +49,9 @@ export class CustomersComponent {
 
   @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
 
-  constructor() {}
+  constructor() {
+    this.daysBetween = this.calcTimeAgo(this.givenDate);
+  }
 
   slideNext() {
     this.swiper?.swiperRef?.slideNext();
@@ -56,7 +60,10 @@ export class CustomersComponent {
     this.swiper?.swiperRef?.slidePrev();
   }
 
-  calcTimeAgo(date: Date) {
-    return moment(date).fromNow();
+  calcTimeAgo(date: Date): number {
+    const oneDay = 24 * 60 * 60 * 1000; // milisegundos en un día
+    const today = new Date();
+    const diffInTime = today.getTime() - date.getTime();
+    return Math.round(diffInTime / oneDay / 365);
   }
 }

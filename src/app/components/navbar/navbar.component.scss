@@ -48,6 +48,15 @@ nav {
 .nav--mobile {
   display: none;
 }
+
+.nav--desktop {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #27263ff2;
+  transition: 0.3s;
+}
+
 .nav--icon {
   border-radius: 100px;
   padding: 0.5rem;
@@ -100,6 +109,7 @@ nav {
 @media only screen and (max-width: 770px) {
   .nav--desktop {
     display: none;
+    position: sticky;
   }
   .nav--mobile {
     display: block;

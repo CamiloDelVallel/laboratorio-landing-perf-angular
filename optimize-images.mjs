@@ -1,0 +1,17 @@
+import imagemin from 'imagemin';
+import imageminMozjpeg from 'imagemin-mozjpeg';
+import imageminPngquant from 'imagemin-pngquant';
+
+(async () => {
+  const files = await imagemin(['src/assets/images/*.{jpg,png}'], {
+    destination: 'src/assets/images/optimized',
+    plugins: [
+      imageminMozjpeg({ quality: 75 }),
+      imageminPngquant({
+        quality: [0.6, 0.8]
+      })
+    ]
+  });
+
+  console.log(files);
+})();
